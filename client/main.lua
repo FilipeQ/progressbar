@@ -1,3 +1,5 @@
+local Framework = 'esx' -- esx, qbus
+
 local Action = {
     name = "",
     duration = 0,
@@ -100,10 +102,21 @@ function Process(action, start, tick, finish)
                 end
             end)
         else
-            TriggerEvent("QBCore:Notify", "You are already doing something!", "error")
+            if Framework == 'esx' then
+                TriggerEvent('esx:showNotification', "You are already doing something!")
+            elseif Framework == 'qbus' then
+                TriggerEvent("QBCore:Notify", "You are already doing something!", "error")
+            end
+            
         end
     else
-        TriggerEvent("QBCore:Notify", "Cant do that action!", "error")
+
+        if Framework == 'esx' then
+            TriggerEvent('esx:showNotification', "Cant do that action!")
+        elseif Framework == 'qbus' then
+            TriggerEvent("QBCore:Notify", "Cant do that action!", "error")
+        end
+        
     end
 end
 
